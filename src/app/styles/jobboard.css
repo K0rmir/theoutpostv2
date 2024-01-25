@@ -1,0 +1,27 @@
+
+#jobCardArea {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#jobCardArea a {
+    text-decoration: none;
+}
+
+.jobCard {
+        display: flex;
+        flex-direction: column;
+        margin: 5px;
+        padding: 5px;
+        backdrop-filter: blur(500px);
+        width: 220px;
+        height: 100px;
+        border-radius: 10px;
+        border: solid 3px black;
+    }
+    
+    #jobCard h2, p {
+        color: black;
+        margin: 5px;
+}

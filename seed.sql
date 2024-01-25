@@ -2,3 +2,11 @@ CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL 
 );
+
+CREATE TABLE IF NOT EXISTS jobs (
+ id SERIAL PRIMARY KEY, 
+ title VARCHAR(255) NOT NULL,
+ content TEXT NOT NULL,
+ user_id INTEGER REFERENCES user(id)
+ difficulty_id INTEGER REFERENCES difficulty(id)
+)
