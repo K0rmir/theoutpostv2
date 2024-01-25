@@ -1,15 +1,17 @@
+// Form for new job entries //
+
 export default function NewJobForm() {
 
     return (
         <div id="formContainer">
             <form action="">
-                <input type="text" name="name" placeholder="Your Name" />
-                <input type="text" name="job title" placeholder="Job Title" />
-                <input type="text" name="job description" placeholder="Detail what you need doing..." />
+                <input type="text" name="name" placeholder="Your Name" required />
+                <input type="text" name="job title" placeholder="Job Title" required />
+                <input type="text" name="job description" placeholder="Detail what you need doing..." required />
                 <label htmlFor="difficulty">Difficulty:</label>
                 <select
                     name="difficulty" >
-                    <option value="" defaultValue={"Select One..."}>
+                    <option value="" defaultValue={"Select One..."} required>
             Select one...</option>
                     <option value="Easy">Easy</option>
                     <option value="Moderate">Moderate</option>
