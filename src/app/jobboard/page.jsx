@@ -1,3 +1,4 @@
+import Link from "next/link";
 import "../styles/jobboard.css";
 import { db } from "@/lib/db";
 // Connect to Supabase database //
@@ -13,7 +14,7 @@ export const metadata = {
 // Main function for mapping through jobs table and displaying them on the page. //
 export default async function Jobboard() {
   const jobs = await db.query(
-    `SELECT * FROM jobs
+    `SELECT jobs.title, users.name, jobs.id FROM jobs
       JOIN users ON jobs.user_id = users.id
       JOIN difficulty ON jobs.difficulty_id = difficulty.id`
   );
@@ -24,11 +25,13 @@ export default async function Jobboard() {
       <nav id="jobCardArea">
         {jobs.rows.map((jobs) => {
           return (
-            <div key={jobs.title} className="jobCard">
-              <h2>{jobs.title}</h2>
-              <p>{jobs.name}</p>
-              <p>Difficulty: {jobs.type}</p>
-            </div>
+            <Link href={`/jobboard/${jobs.id}`} key={jobs.title}>
+              <div key={jobs.title} className="jobCard">
+                <h2>{jobs.title}</h2>
+                <p>{jobs.name}</p>
+                <p>Difficulty: {jobs.type}</p>
+              </div>
+            </Link>
           );
         })}
       </nav>
