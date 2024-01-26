@@ -17,7 +17,7 @@ export default async function Jobboard() {
       JOIN users ON jobs.user_id = users.id
       JOIN difficulty ON jobs.difficulty_id = difficulty.id`
   );
-  console.table(jobs.rows);
+  console.log(jobs.rows);
 
   return (
     <>
@@ -27,7 +27,7 @@ export default async function Jobboard() {
             <div key={jobs.title} className="jobCard">
               <h2>{jobs.title}</h2>
               <p>{jobs.name}</p>
-              <p>Difficulty: {jobs.difficulty_id}</p>
+              <p>Difficulty: {jobs.type}</p>
             </div>
           );
         })}
