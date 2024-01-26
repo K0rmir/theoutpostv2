@@ -1,6 +1,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
+import AddNewJobBtn from "@/app/components/AddNewJobBtn";
 import "@/app/styles/newjobform.css";
 
 // Form for new job entries //
@@ -77,7 +78,7 @@ export default function NewJobForm() {
           <option value="Hard">Hard</option>
           <option value="Insane">Insane</option>
         </select>
-        <button>Submit</button>
+        <AddNewJobBtn></AddNewJobBtn>
       </form>
     </div>
   );
