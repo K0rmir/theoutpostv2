@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+// import JobBtns from "../../components/JobBtns";
 
 export default async function JobPage({ params }) {
   const jobs = await db.query(
@@ -17,6 +18,10 @@ export default async function JobPage({ params }) {
         <p>{jobs.rows[0].name}</p>
         <h3>{jobs.rows[0].content}</h3>
         <p>Difficulty: {jobs.rows[0].type}</p>
+      </div>
+      <div className="jobBtns">
+        <button>Acccept</button>
+        <button>Decline</button>
       </div>
     </>
   );
