@@ -1,13 +1,33 @@
-"use client";
+import { db } from "@/lib/db";
+import Link from "next/link";
 
-import { redirect } from "next/dist/server/api-utils";
+export default async function JobBtns({ jobId }) {
+  // function to handle accepting quest from jobboard //
 
-export default function JobBtns() {
+  async function handleAcptJob({ jobId }) {
+    "use server";
+    // console.log("Accept button clicked");
+    const jobs = await db.query(
+      `INSERT INTO saved (title, content, user_id, difficulty_id) 
+      SELECT title, content, user_id, difficulty_id
+      FROM jobs
+      WHERE jobs.id = $1`,
+      [jobId]
+    );
+  }
+
+  console.log(jobId);
+
   return (
     <>
       <div className="jobBtns">
-        <button>Acccept</button>
-        <button onClick={redirect("/jobboard")}>Decline</button>
+        {/* wrapping this in a form to get the onclick to work feels dirty, it works, but it feels dirty  */}
+        <form action={handleAcptJob}>
+          <button type="submit">Accept</button>
+        </form>
+        <Link href="/jobboard">
+          <button>Decline</button>
+        </Link>
       </div>
     </>
   );

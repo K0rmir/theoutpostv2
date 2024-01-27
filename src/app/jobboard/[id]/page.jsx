@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-// import JobBtns from "../../components/JobBtns";
+import JobBtns from "@/app/components/JobBtns";
 
 export default async function JobPage({ params }) {
   const jobs = await db.query(
@@ -9,7 +9,8 @@ export default async function JobPage({ params }) {
       WHERE jobs.id = ${params.id}`
   );
 
-  console.log(jobs.rows);
+  let pageId = Object.values(params);
+  let jobId = Number(pageId);
 
   return (
     <>
@@ -19,10 +20,7 @@ export default async function JobPage({ params }) {
         <h3>{jobs.rows[0].content}</h3>
         <p>Difficulty: {jobs.rows[0].type}</p>
       </div>
-      <div className="jobBtns">
-        <button>Acccept</button>
-        <button>Decline</button>
-      </div>
+      <JobBtns jobId={jobId}></JobBtns>
     </>
   );
 }

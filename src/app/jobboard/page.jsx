@@ -18,14 +18,14 @@ export default async function Jobboard() {
       JOIN users ON jobs.user_id = users.id
       JOIN difficulty ON jobs.difficulty_id = difficulty.id`
   );
-  console.log(jobs.rows);
+  // console.log(jobs.rows);
 
   return (
     <>
       <nav id="jobCardArea">
         {jobs.rows.map((jobs) => {
           return (
-            <Link href={`/jobboard/${jobs.id}`} key={jobs.title}>
+            <Link href={`/jobboard/${jobs.id}`} key={jobs.title + jobs.id}>
               <div key={jobs.title} className="jobCard">
                 <h2>{jobs.title}</h2>
                 <p>{jobs.name}</p>
