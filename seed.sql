@@ -10,3 +10,11 @@ CREATE TABLE IF NOT EXISTS jobs (
  user_id INTEGER REFERENCES user(id)
  difficulty_id INTEGER REFERENCES difficulty(id)
 )
+
+
+
+CREATE TABLE IF NOT EXISTS notes (
+  id SERIAL PRIMARY KEY,
+  note VARCHAR(255) NOT NULL,
+  savedjob_id INTEGER REFERENCES saved(id)
+)

@@ -1,9 +1,7 @@
+// All jobs that are created via the newjobform are displayed here //
 import Link from "next/link";
 import "../styles/jobboard.css";
 import { db } from "@/lib/db";
-// Connect to Supabase database //
-
-// List of jobs here with .map from database //
 
 // Metadata for browser page title //
 export const metadata = {
@@ -14,7 +12,7 @@ export const metadata = {
 // Main function for mapping through jobs table and displaying them on the page. //
 export default async function Jobboard() {
   const jobs = await db.query(
-    `SELECT jobs.title, users.name, jobs.id FROM jobs
+    `SELECT jobs.title, users.name, jobs.id, difficulty.type FROM jobs
       JOIN users ON jobs.user_id = users.id
       JOIN difficulty ON jobs.difficulty_id = difficulty.id`
   );
@@ -22,7 +20,7 @@ export default async function Jobboard() {
 
   return (
     <>
-      <nav id="jobCardArea">
+      <nav className="jobCardArea">
         {jobs.rows.map((jobs) => {
           return (
             <Link href={`/jobboard/${jobs.id}`} key={jobs.title + jobs.id}>

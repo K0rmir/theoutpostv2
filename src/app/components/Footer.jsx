@@ -1,8 +1,9 @@
-export default function Footer() {
+import "@/app/styles/footer.css";
 
-    return (
-        <>
-        <p>&copy; The Outpost 2097</p>
-        </>
-    )
+export default function Footer() {
+  return (
+    <footer id="footer">
+      <p>&copy; The Outpost 2097</p>
+    </footer>
+  );
 }

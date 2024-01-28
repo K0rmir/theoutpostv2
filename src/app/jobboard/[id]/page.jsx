@@ -1,3 +1,4 @@
+// Functionality for each individual job when clicked from the job board //
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -14,7 +15,7 @@ export default async function JobPage({ params }) {
   // Once accept btn is clicked (imported as component from JobBtns.jsx), job data is inserted into the saved table //
   async function handleAcptJob() {
     "use server";
-    let pageId = params;
+    let pageId = params.id;
     console.log("Accept button clicked");
     console.log(pageId);
     const savedJob = await db.query(
@@ -22,19 +23,19 @@ export default async function JobPage({ params }) {
       SELECT title, content, user_id, difficulty_id
       FROM jobs
       WHERE jobs.id = $1`,
-      [pageId.id]
+      [pageId]
     );
-
+    // Query to delete row from Jobs table
     await db.query(
       `
     DELETE FROM jobs
     WHERE jobs.id = $1`,
-      [pageId.id]
+      [pageId]
     );
 
-    // revalidate / refresh the path so the new job shows //
+    // revalidate / refresh the path so the new accepted job is removed //
     revalidatePath("/jobboard");
-    // redirect user to job board //
+    // redirect user to saved jobs //
     redirect("/jobboard");
   }
 
