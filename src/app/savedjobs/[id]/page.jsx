@@ -1,6 +1,8 @@
 // // Functionality for each INDIVIDUAL SAVED job when clicked from the saved jobs page //
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
+import AddNewNoteBtn from "@/app/components/AddNewNoteBtn";
+import { redirect } from "next/dist/server/api-utils";
 
 export default async function SavedJobPage({ params }) {
   const jobs = await db.query(
@@ -33,6 +35,27 @@ export default async function SavedJobPage({ params }) {
     revalidatePath(`/savedjobs/${params}`);
   }
 
+  const notes = await db.query(
+    `SELECT * from notes 
+        WHERE savedjob_id = $1`,
+    [params.id]
+  );
+  // function to delete job and related notes from saved & notes tables //
+  async function handleCompleteJob() {
+    "use server";
+    // need to finish
+    // await db.query(
+    //   `DELETE saved, notes
+    //   FROM saved
+    //   INNER JOIN notes ON
+    //     WHERE saved.id = $1`,
+    //   [params.id]
+    // );
+
+    revalidatePath("/savedjobs");
+    redirect("/jobboard");
+  }
+
   return (
     <>
       <div id="jobContent">
@@ -40,10 +63,24 @@ export default async function SavedJobPage({ params }) {
         <p>{jobs.rows[0].name}</p>
         <h3>{jobs.rows[0].content}</h3>
         <p>Difficulty: {jobs.rows[0].type}</p>
+
+        <form action={handleCompleteJob}>
+          <button>Mark As Complete</button>
+        </form>
       </div>
+
       {/* Space to add notes to individual, accepted jobs */}
       <div id="noteSection">
-        <div className="notesArea"></div>
+        <div className="notesArea">
+          {notes.rows.map((notes) => {
+            return (
+              <ul key={notes.id}>
+                <li>{notes.note}</li>
+              </ul>
+            );
+          })}
+        </div>
+
         <div className="noteForm">
           <form action={handleAddNote}>
             <input
@@ -53,7 +90,7 @@ export default async function SavedJobPage({ params }) {
               placeholder="Add a note..."
               required
             />
-            <button type="submit">Add</button>
+            <AddNewNoteBtn></AddNewNoteBtn>
           </form>
         </div>
       </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useFormStatus } from "react-dom";
 
 // This function returns the buttons for each individual job page. //
 // Because the accept btn is wrapped in a form, when it is "submitted" (accept button clicked), it passes the form action/event, which //
@@ -11,16 +10,12 @@ import { useFormStatus } from "react-dom";
 // It's probably very bad. //
 
 export default async function JobBtns({ handleAcptJob }) {
-  const formStatus = useFormStatus();
-
   return (
     <>
       <div className="jobBtns">
         {/* wrapping this in a form to get the onclick to work feels dirty, it works, but it feels dirty  */}
         <form action={handleAcptJob}>
-          <button type="submit" disabled={formStatus.pending}>
-            {formStatus.pending ? "Accepting..." : "Accept"}
-          </button>
+          <button>Accept </button>
         </form>
         <Link href="/jobboard">
           <button>Decline</button>
