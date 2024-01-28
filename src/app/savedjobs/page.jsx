@@ -15,9 +15,6 @@ export default async function SavedJobs() {
   JOIN users ON saved.user_id = users.id
   JOIN difficulty ON saved.difficulty_id = difficulty.id`);
 
-  // console.table(savedJobs.rows);
-  // console.log(savedJobs);
-
   return (
     <>
       <nav className="jobCardArea">

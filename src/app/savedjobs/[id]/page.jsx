@@ -2,7 +2,7 @@
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import AddNewNoteBtn from "@/app/components/AddNewNoteBtn";
-import { redirect } from "next/dist/server/api-utils";
+import { redirect } from "next/navigation";
 
 export default async function SavedJobPage({ params }) {
   const jobs = await db.query(
@@ -43,17 +43,22 @@ export default async function SavedJobPage({ params }) {
   // function to delete job and related notes from saved & notes tables //
   async function handleCompleteJob() {
     "use server";
-    // need to finish
-    // await db.query(
-    //   `DELETE saved, notes
-    //   FROM saved
-    //   INNER JOIN notes ON
-    //     WHERE saved.id = $1`,
-    //   [params.id]
-    // );
+    // query to delete notes from saved job with param id //
+    await db.query(
+      `DELETE FROM notes 
+      WHERE savedjob_id IN (SELECT id FROM saved WHERE id = $1)`,
+      [params.id]
+    );
+    // query to delete saved job from saved table //
+    await db.query(
+      `
+    DELETE FROM saved 
+    WHERE id = $1`,
+      [params.id]
+    );
 
     revalidatePath("/savedjobs");
-    redirect("/jobboard");
+    redirect("/savedjobs");
   }
 
   return (
@@ -91,8 +96,6 @@ export default async function SavedJobPage({ params }) {
           </div>
         </div>
       </div>
-
-      {/* Space to add notes to individual, accepted jobs */}
     </div>
   );
 }
