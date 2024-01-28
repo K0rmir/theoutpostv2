@@ -1,13 +1,18 @@
 * {
-    font-family: monospace;
+  font-family: monospace;
 }
 
 body {
-    height: 100vh;
-    background: rgb(58,33,60);
-    background: linear-gradient(102deg, rgba(58,33,60,1) 7%, rgba(7,57,84,1) 84%, rgba(5,108,129,1) 100%);
-    background-repeat:unset;
-    background-size: auto;
-    margin: 0;
-    padding: 0;
+  height: 100vh;
+  background: rgb(58, 33, 60);
+  background: linear-gradient(
+    102deg,
+    rgba(58, 33, 60, 1) 7%,
+    rgba(7, 57, 84, 1) 84%,
+    rgba(5, 108, 129, 1) 100%
+  );
+  background-repeat: unset;
+  background-size: auto;
+  margin: 0;
+  padding: 0;
 }
