@@ -42,7 +42,7 @@ p {
   justify-content: center;
   padding: 10px;
   margin: 5px;
-  margin-top: 100px;
+  margin-top: 80px;
   border: solid 3px black;
   border-radius: 10px;
   width: fit-content;
@@ -57,6 +57,7 @@ p {
   font-size: 1.2rem;
   font-weight: 700;
   margin: 15px;
+  cursor: pointer;
 }
 
 .title {
@@ -115,4 +116,5 @@ p {
   backdrop-filter: blur(500px);
   font-size: 1.2rem;
   font-weight: 700;
+  cursor: pointer;
 }
