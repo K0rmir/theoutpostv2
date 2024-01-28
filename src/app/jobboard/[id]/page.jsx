@@ -1,4 +1,6 @@
 import { db } from "@/lib/db";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import JobBtns from "@/app/components/JobBtns";
 
 export default async function JobPage({ params }) {
@@ -29,6 +31,11 @@ export default async function JobPage({ params }) {
     WHERE jobs.id = $1`,
       [pageId.id]
     );
+
+    // revalidate / refresh the path so the new job shows //
+    revalidatePath("/jobboard");
+    // redirect user to job board //
+    redirect("/jobboard");
   }
 
   return (
