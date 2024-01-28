@@ -2,7 +2,6 @@ import { db } from "@/lib/db";
 import JobBtns from "@/app/components/JobBtns";
 
 export default async function JobPage({ params }) {
-  // console.log(params);
   const jobs = await db.query(
     `SELECT * FROM jobs
       JOIN users ON jobs.user_id = users.id
@@ -10,17 +9,26 @@ export default async function JobPage({ params }) {
       WHERE jobs.id = ${params.id}`
   );
 
+  // Once accept btn is clicked (imported as component from JobBtns.jsx), job data is inserted into the saved table //
   async function handleAcptJob() {
     "use server";
     let pageId = params;
     console.log("Accept button clicked");
     console.log(pageId);
     const savedJob = await db.query(
-      `SELECT * FROM jobs
+      `INSERT INTO saved (title, content, user_id, difficulty_id)
+      SELECT title, content, user_id, difficulty_id
+      FROM jobs
       WHERE jobs.id = $1`,
       [pageId.id]
     );
-    console.table(savedJob.rows);
+
+    await db.query(
+      `
+    DELETE FROM jobs
+    WHERE jobs.id = $1`,
+      [pageId.id]
+    );
   }
 
   return (
