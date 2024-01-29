@@ -9,7 +9,7 @@ import Link from "next/link";
 // with the added layer of client/server components in next.js, but I done dang did it. //
 // It's probably very bad. //
 
-export default async function JobBtns({ handleAcptJob }) {
+export default function JobBtns({ handleAcptJob }) {
   return (
     <>
       <div className="jobBtns">
