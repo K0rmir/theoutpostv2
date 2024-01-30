@@ -4,13 +4,8 @@
 
 body {
   height: 100vh;
-  background: rgb(58, 33, 60);
-  background: linear-gradient(
-    102deg,
-    rgba(58, 33, 60, 1) 7%,
-    rgba(7, 57, 84, 1) 84%,
-    rgba(5, 108, 129, 1) 100%
-  );
+  background: rgb(23,25,24);
+  background: radial-gradient(circle, rgba(23,25,24,1) 0%, rgba(55,59,57,1) 0%, rgba(39,42,41,1) 100%);
   background-repeat: unset;
   background-size: auto;
   margin: 0;
