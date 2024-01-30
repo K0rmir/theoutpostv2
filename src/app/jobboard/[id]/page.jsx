@@ -1,10 +1,10 @@
 // Functionality for each individual job when clicked from the job board //
-import { db } from "@/lib/db";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import {db} from "@/lib/db";
+import {revalidatePath} from "next/cache";
+import {redirect} from "next/navigation";
 import JobBtns from "@/app/components/JobBtns";
 
-export default async function JobPage({ params }) {
+export default async function JobPage({params}) {
   const jobs = await db.query(
     `SELECT * FROM jobs
       JOIN users ON jobs.user_id = users.id
@@ -35,6 +35,7 @@ export default async function JobPage({ params }) {
 
     // revalidate / refresh the path so the new accepted job is removed //
     revalidatePath("/jobboard");
+    revalidatePath("/savedjobs");
     // redirect user to saved jobs //
     redirect("/jobboard");
   }
