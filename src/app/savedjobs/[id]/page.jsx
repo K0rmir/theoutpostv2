@@ -70,7 +70,7 @@ export default async function SavedJobPage({ params }) {
         <p>Difficulty: {jobs.rows[0].type}</p>
 
         <form action={handleCompleteJob}>
-          <button id="completeBtn">Mark As Complete</button>
+          <button id="completeBtn">Complete</button>
         </form>
         <div id="noteSection">
           <div className="notesArea">
